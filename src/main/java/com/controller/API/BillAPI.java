@@ -1,11 +1,9 @@
-package com.controller.web;
+package com.controller.API;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,57 +13,58 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.models.CartModel;
+import com.service.BillService;
 import com.service.CartService;
+import com.service.impl.BillServiceImpl;
 import com.service.impl.CartServiceImpl;
 
 /**
- * Servlet implementation class CartController
+ * Servlet implementation class BillAPI
  */
-@WebServlet(urlPatterns="/web/cart")
-public class CartController extends HttpServlet {
+@WebServlet("/BillAPI")
+public class BillAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	  Gson gson =new Gson();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CartController() {
+    public BillAPI() {
         super();
         // TODO Auto-generated constructor stub
     }
-    Gson gson =new Gson();
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-        response.setContentType("text/htm");
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        
-        int id_user = 1;
-        CartService cartSer = new CartServiceImpl();
-        List<CartModel> listCart = cartSer.getByIDUser(id_user);
-        
-        
-        
-        request.setAttribute("listCart", gson.toJson(listCart));
-        
-        RequestDispatcher rq = request.getRequestDispatcher("/views/main_cart.jsp");
-        rq.forward(request, response);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/htm");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 
-	}
-
-	@Override
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		 StringBuffer jb = new StringBuffer(); String line = null; 
+		 PrintWriter out = response.getWriter();
+		 
+		 try { BufferedReader reader = request.getReader(); while ((line =
+		 reader.readLine()) != null) jb.append(line); } catch (Exception e) { 
+			 }
+				 
+		 JsonElement root = new JsonParser().parse(new String(jb));
+		 String city_ship = root.getAsJsonObject().get("city_ship").getAsString().trim();
+		 int id_user =1;
+		 
+		 
+		 BillService cartSer = new BillServiceImpl();
+		 boolean res= cartSer.payment(id_user, city_ship);
+		 out.print(res);
 	}
-	
 
 }

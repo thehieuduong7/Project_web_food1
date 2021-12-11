@@ -7,12 +7,20 @@ public class BillModel {
 	int id_user;
 	String city_ship;
 	Date time_bill ;
-	public BillModel(int id_bill, int id_user, String city_ship, Date time_bill) {
+	float total_money_pay;
+	public BillModel(int id_bill, int id_user, String city_ship, Date time_bill,float total_money_pay) {
 		super();
 		this.id_bill = id_bill;
 		this.id_user = id_user;
 		this.city_ship = city_ship;
 		this.time_bill = time_bill;
+		this.total_money_pay=total_money_pay;
+	}
+	public float getTotal_money_pay() {
+		return total_money_pay;
+	}
+	public void setTotal_money_pay(float total_money_pay) {
+		this.total_money_pay = total_money_pay;
 	}
 	public int getId_bill() {
 		return id_bill;

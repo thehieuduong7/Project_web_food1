@@ -7,7 +7,12 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns="/web/product")
 public class ProductController extends HttpServlet {
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/htm");
         response.setCharacterEncoding("UTF-8");

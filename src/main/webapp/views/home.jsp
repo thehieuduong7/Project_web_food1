@@ -42,11 +42,12 @@
 
     <div class="box-container">
 
+		<c:forEach items="${ListTop4 }" var="pro">
+		
         <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="/assets/img/caKhoTo.jpg" alt="">
-            <h3>Cá kho tộ</h3>
+            <a href="<c:url value="/web/productDetail?pid=${pro.getId_product() }" />" class="fas fa-eye"></a>
+            <img src="${pro.getPhoto() }" alt="" width= "100px" height="100px">
+            <h3>${pro.getName_food() }</h3>
             <div class="stars">
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
@@ -54,66 +55,13 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
             </div>
-            <span>$15.99</span>
-            <a href="#" class="btn">
+            <span> ${pro.getPrice()}đồng </span>
+            <button class="btn" onclick="plusCart(${pro.getId_product()})">
                 <i class="fas fa-shopping-basket"></i>
-                Thêm vào giỏ</a>
+                Thêm vào giỏ</button>
         </div>
-
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="/assets/img/khoQuet.jpg" alt="">
-            <h3>Kho quẹt</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$15.99</span>
-            <a href="#" class="btn">
-                <i class="fas fa-shopping-basket"></i>
-                Thêm vào giỏ</a>
-        </div>
-
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="/assets/img/banhMi.jpg" alt="">
-            <h3>Bánh mỳ</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$15.99</span>
-            <a href="#" class="btn">
-                <i class="fas fa-shopping-basket"></i>
-                Thêm vào giỏ</a>
-        </div>
-
-        <div class="box">
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-            <img src="/assets/img/goiGa.jpeg" alt="">
-            <h3>Gỏi gà</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-            </div>
-            <span>$15.99</span>
-            <a href="#" class="btn">
-                <i class="fas fa-shopping-basket"></i>
-                Thêm vào giỏ</a>
-        </div>
-
+        
+		</c:forEach>
     </div>
 
 </section>
@@ -155,7 +103,57 @@
     </div>
 </section>
 <!-- about section ends -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+var urlCartAPI = '<c:url value="/CartAPI" />'
 
+	function plusCart(id_product){
+			var data={
+					id_product: id_product,
+					amount: 1
+			}
+			$.ajax({
+				  url: urlCartAPI,
+				  type: 'post',
+				  data: JSON.stringify(data),
+				  success: function (data, status) {
+					 console.log('done');
+					 if(data=='true'){
+						alert('Thêm vào giỏ hàng thành công')
+					 }
+					 else {
+						 alert("loi");
+					 }
+				  },
+				  error: function (xhr, desc, err) {
+				    console.log(xhr);
+				    console.log("Desc: " + desc + "\nErr:" + err);
+				  },
+				  async: false
+				});
+		}
+	function deleteCart(id_product){
+	$.ajax({
+		  url: urlCartAPI+"?pid="+id_product,
+		  type: 'delete',
+		  success: function (data, status) {
+			 console.log('done');
+			 if(data=='true'){
+				 var cartItem= document.getElementById("cart-item"+id_product);	
+				 cartItem.remove()
+			 }
+			 else {
+				 alert("server hiện quá tải! vui lòng thử lại sau");
+			 }
+		  },
+		  error: function (xhr, desc, err) {
+		    console.log(xhr);
+		    console.log("Desc: " + desc + "\nErr:" + err);
+		  },
+		  async: false
+		});
+}
+</script>
 
 
 

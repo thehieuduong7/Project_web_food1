@@ -1,6 +1,5 @@
 package com.models;
 
-import java.awt.Image;
 
 public class ProductModel {
 	int id_product ;
@@ -9,7 +8,11 @@ public class ProductModel {
 	int id_seller ;
 	float price ;
 	String description ;
-	Image photo;
+	String photo;
+	float salePercent;
+	public float getBuyPrice() {
+		return this.price*(1-this.salePercent);
+	}
 	public int getId_product() {
 		return id_product;
 	}
@@ -46,14 +49,31 @@ public class ProductModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Image getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
-	public void setPhoto(Image photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	public float getSalePercent() {
+		return salePercent;
+	}
+	public void setSalePercent(float salePercent) {
+		this.salePercent = salePercent;
+	}
+	public ProductModel(String name_food, int id_category, int id_seller, float price,
+			String description, String photo,float salePercent) {
+		this.name_food = name_food;
+		this.id_category = id_category;
+		this.id_seller = id_seller;
+		this.price = price;
+		this.description = description;
+		this.photo = photo;
+		this.salePercent= salePercent;
+	}
+
 	public ProductModel(int id_product, String name_food, int id_category, int id_seller, float price,
-			String description, Image photo) {
+			String description, String photo,float salePercent) {
 		super();
 		this.id_product = id_product;
 		this.name_food = name_food;
@@ -62,5 +82,7 @@ public class ProductModel {
 		this.price = price;
 		this.description = description;
 		this.photo = photo;
+		this.salePercent= salePercent;
 	}
+
 }

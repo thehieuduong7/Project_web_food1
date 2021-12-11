@@ -1,226 +1,371 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<div class="container-md " style="margin-top:9em;">
+	<div class="row" style="height:500px;">
+		 <div class="col-1"></div>
+		<div class="col-7">
 
-<body class="skin-light">
-<h1>a</h1><h1>a</h1>
-<main>
-    <div class="container">
+			<div class="title row">
+				<div class="row">
+					<div class="col-4">
+						<h4 class="row">
+							<b>Shopping Cart</b>
+						</h4>
+						
+					</div>
+					<div class="col-6">
+						<h3 class=" row">Đã đặt trong giỏ hàng</h3>
+					</div>
+					<div class="col-2">
+						<h3 class=" row text-right">Giá tiền</h3>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row" id="List-cart-container">
+				<div>
+					<div class="row border-top border-bottom">
+						<div class="row main align-items-center">
+							<div class="col-2">
+								<img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg">
+							</div>
+							<div class="col-2">
+								<div class="row text-muted"></div>
+								<div class="row">1</div>
+								<div class="col-1">
+								&euro; 44.00 <span class="close">&#10005;</span>
+							</div>
+							</div>
+							<div class="col-7">
+								
+									<ul class=" roww list-inline pb-3">
+									
+										<li class="list-inline-item "><span
+											class="btn btn-success" id="Cart-amount-minus">-</span></li>
+										<li class="list-inline-item "><span class="btn"
+											style="background-color: white; color: blue;"
+											id="Cart-amount-value"> ${cart.getAmount()} </span></li>
+										<li class="list-inline-item"><span
+											class="btn btn-success" id="Cart-amount-plus">+</span></li>
+									</ul>
+								</div>
+							<div class="col-1">
+								&euro; 44.00 <span class="close">&#10005;</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
 
-        <!--Section: Block Content-->
-        <section class="mt-5 mb-4">
+		</div>
+			
+		<div class="col-4">
+			<div>
+				<h4>
+					Thanh toán
+				</h4>
+			</div>
+			<hr>
+			<div class="row mb-10">
+				<div class="col" style="">
+					<h4><strong>Tổng tiền</strong></h4>
+				</div>
+				<div class="col text-right mr-20" >&euro; 
+				<span id="Cart-totalMoney">
+				132.00
+				</span>
+				</div>
+			</div>
+			<div class="row">
 
-            <!--Main row-->
-            <div class="row">
+				<div class="col" style="">
+					<h4><strong>Shipping</strong></h4>
+				</div>
+				<div class="col text-right mr-20">&euro;
+					<span id="Shipping-price">132.00</span>
+				 </div>
 
-                <!-- Column 1: Product, info shipping and pay -->
-                <div class="col-lg-8">
+				<select class="form-select" aria-label="Default select example">
+					<option selected>Open this select menu</option>
+					<option value="1">One</option>
 
-                    <!-- Card Product -->
-                    <div class="card wish-list mb-4">
-                        <div class="card-body">
-                            <h5 id="countCart" class="mb-4">Cart (<span>${cart.countItem}</span> items)</h5>
+				</select> 
+			
+			</div>
+			<div class="row"
+				style="border-top: 1px solid rgba(0, 0, 0, .1); padding: 2vh 0;">
+				<div class="col">
+				<h4>
+				<strong>Tổng tiền thanh toán</strong>
+				</h4>
+				</div>
+				<div class="col text-right mr-20">&euro; 
+				<span id="Bill-money-value">
+					137.00
+				</span></div>
+			</div>
+			<button class="btn row" id="Bill-pay" style="width:100%;">PAY</button>
 
-                            <div id="content">
-                                <c:forEach var="item" items="${cart.items}">
-                                    <div class="row mb-4 countItem">
-                                        <div class="col-md-5 col-lg-3 col-xl-3">
-                                            <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-                                                <img class="img-fluid w-100"
-                                                     src="${item.food.galleries[0].img_url}"
-                                                     alt="Sample">
-                                                <a href="#!">
-                                                    <div class="mask waves-effect waves-light">
-                                                        <img class="img-fluid w-100"
-                                                             src="${item.food.galleries[0].img_url}">
-                                                        <div class="mask rgba-black-slight waves-effect waves-light"></div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div style="height: 174px" class="col-md-7 col-lg-9 col-xl-9">
-                                            <div>
-                                                <div style="height: 130px" class="d-flex justify-content-between">
-                                                    <div>
-                                                        <h5>${item.food.f_name}</h5>
-                                                        <p class="mb-3 text-muted text-uppercase small">${item.food.desciprtion}</p>
-                                                    </div>
-                                                    <div>
-                                                        <div class="def-number-input number-input safari_only mb-0 w-100">
-<%--                                                            <form action="" method="post">--%>
-                                                                <input type="hidden" name="foodId" value="${item.food.fid}">
-
-                                                                <input style="font-weight: bold; padding-left: 10px; width: 2.5rem; border: none; background-color: transparent" onclick="this.parentNode.querySelector('input[type=number]').stepDown(); updateCart(${item.food.fid}, ${item.quantity}, 'minus')"
-                                                                       type="submit" value="-">
-
-                                                                <input name="quantity" class="quantity" min="0" value="${item.quantity}"
-                                                                       type="number">
-
-                                                                <input id="btnPlus" style="font-weight: bold; padding-right: 10px; width: 2.5rem; border: none; background-color: transparent" onclick="this.parentNode.querySelector('input[type=number]').stepUp(); updateCart(${item.food.fid}, ${item.quantity}, 'plus');"
-                                                                       type="submit" value="+">
-
-<%--                                                                <button class="btn btn-primary" onclick="this.parentNode.querySelector('input[type=number]').stepUp(); updateCart(${item.food.fid}, ${item.quantity})">+</button>--%>
-<%--                                                            </form>--%>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div>
-<%--                                                        <form action="" method="post">--%>
-                                                            <input type="hidden" name="foodId"
-                                                                   value="${item.food.fid}">
-                                                            <input type="hidden" name="quantity" value="0">
-                                                            <input class="card-link-secondary small text-uppercase mr-3 fas fa-trash-alt mr-1"
-                                                                   type="submit" value="Remove Item" onclick="updateCart(${item.food.fid}, '0','minus' )">
-<%--                                                        </form>--%>
-                                                    </div>
-                                                    <p class="mb-0"><span><strong>${item.food.priceCurrencyFormat}</strong></span></p>
-                                                    <p class="totalSingle mb-0"><span><strong>${item.totalCurrencyFormat}</strong></span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="mb-4">
-                                </c:forEach>
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- Card Product -->
-
-                    <!-- Card Info Shipping-->
-                    <div class="card mb-4">
-                        <div class="card-body">
-
-                            <h5 class="mb-4">Giao hàng vào</h5>
-
-                            <p class="mb-0"> Thu., 12.03. - Mon., 16.03.</p>
-                        </div>
-                    </div>
-                    <!-- Card Info Shipping-->
-
-                    <!-- Card Info Paying-->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="mb-4">Chấp nhận thanh toán</h5>
-                            <img class="mr-2" width="45px"
-                                 src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
-                                 alt="Visa">
-                            <img class="mr-2" width="45px"
-                                 src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
-                                 alt="Mastercard">
-                            <img class="mr-2" width="45px"
-                                 src="/assets/img/paypal.svg"
-                                 alt="PayPal acceptance mark">
-                        </div>
-                    </div>
-                    <!-- Card Info Paying-->
-                </div>
-                <!--Column 1: Product, info shipping and pay -->
-
-                <!--Column 2: Total price and discount -->
-                <div id="contentTotalCart" class="col-lg-4">
-                    <!-- Card total price -->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="mb-3">The total amount of</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                    Tạm tính
-                                    <span id="totalCart">${cart.totalCurrencyFormat}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                    Shipping
-                                    <span>asd</span>
-                                </li>
-                                <li
-                                        class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                    <div>
-                                        <strong>Tổng thanh toán</strong>
-                                        <strong>
-                                            <p class="mb-0">(Bao gồm VAT)</p>
-                                        </strong>
-                                    </div>
-                                    <span><strong>${cart.totalCurrencyFormat}</strong></span>
-                                </li>
-                            </ul>
-                            <button type="button" class="btn btn-primary btn-block waves-effect waves-light">Thanh toán</button>
-                        </div>
-                    </div>
-                    <!-- Card total price -->
-                </div>
-                <!--Column 2: Total price and discount -->
-            </div>
-            <!--Main row-->
-
-        </section>
-        <!--Section: Block Content-->
-    </div>
-</main>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		</div>
+	</div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    function updateCart(foodId, quantity, typeBtn){
-        $.ajax({
-            url: "/UpdateCartServlet",
-            type: "get", //send it through get method
-            data: {
-                IdFood: foodId,
-                FoodQuantity: quantity,
-                typeBtn: typeBtn,
-            },
-            success: function(data) {
-                var row = document.getElementById("content");
-                row.innerHTML = data;
-                updateTotalCart();
-                countCart();
-            },
-            error: function(xhr) {
+var urlProductAPIbase = '<c:url value="/ProductAPI" />'
+function getUrlProduct(id_product){
+	return urlProductAPIbase+"?pid="+id_product;
+}
+function getProductDetail(id_product){
+	let dataPro;
+	let name_food;
+	 $.ajax({
+		url:getUrlProduct(id_product),
+		type:'get',
+		success: function (data, status) {
+			 console.log('done');
+			 dataPro =JSON.parse(data);
+			return dataPro
+			
+		  },
+		  error: function (xhr, desc, err) {
+		    console.log(xhr);
+		    console.log("Desc: " + desc + "\nErr:" + err);
+		  },
+		  async: false
+	})
+	return dataPro
+}
 
-            }
-        });
-    }
 
-    function updateTotalCart(){
-        $.ajax({
-            url: "/UpdateTotalCartServlet",
-            type: "get", //send it through get method
-            data: {
+var listCartContainer= document.getElementById('List-cart-container')
 
-            },
-            success: function(data) {
-                var row = document.getElementById("contentTotalCart");
-                row.innerHTML = data;
-            },
-            error: function(xhr) {
 
-            }
-        });
-    }
+function showCart(data){
+	var product = data['product']
+	var id_product = data['id_product']
+	var name_food=product['name_food']
+	var id_category = product['id_category']
+	var price =parseFloat(product['price'])
+	var salePercent =parseFloat(product['salePercent'])
+	var buyPrice = price*(1-salePercent)
+	var amount = data['amount']
+	var cart_div = document.createElement("div");
+	cart_div.id="cart-item"+id_product
+	var content_div=`
+		<div class="row border-top border-bottom">
+		<div class="row main align-items-center">
+			<div class="col-2">
+				<img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg">
+			</div>
+			<div class="col-2">
+				<div class="row text-muted" style="font-size:15px;">`+name_food+`</div>
+				<div class="row">`+id_category+`</div>
+				
+				
+	
+				
+			</div>
+			<div class="col-6">
+				
+					<ul class=" roww list-inline pb-3">
+					
+						<li class="list-inline-item "><span
+							class="btn btn-success" id="Cart-amount-minus"
+							onclick="minusCart(`+id_product+`)"
+							>-</span></li>
+						<li class="list-inline-item "><span class="btn"
+							style="background-color: white; color: blue;"
+							id="Cart-amount-value`+id_product+`"> `+amount+`</span></li>
+						<li class="list-inline-item"><span
+							onclick="plusCart(`+id_product+`)"
+							class="btn btn-success" id="Cart-amount-plus">+</span></li>
+					</ul>
+				</div>
+			<div class="col-2">
+			<div display="inline"><span class="row"style="text-decoration-line: 
+				`+((salePercent==0)?"none;":"line-through;")+
+				`">
+				$`+price+`</span> <span class=" row" style="">
+				`+((salePercent==0)?"":("$"+buyPrice))+`
+							</span>
+							
+			</div>
+				<button type="button" 
+				onclick="deleteCart(`+id_product+`)"
+				class="" style="display:inline;float:right;">&#10005;</button>
+				
+			</div>
+		</div>
+	</div>
+	`
+	cart_div.innerHTML = content_div
+	listCartContainer.appendChild(cart_div)
+}
 
-    function countCart(){
-        $.ajax({
-            url: "/CountCartServlet",
-            type: "get", //send it through get method
-            data: {
 
-            },
-            success: function(data) {
-                var row = document.getElementById("countCart");
-                row.innerHTML = data;
-            },
-            error: function(xhr) {
+var listCart = (${listCart})
+function showListCart(){
+	clearCartContainner()
+	for (let data of listCart){		
+		var id_product = data['id_product']
+		var dataProduct = getProductDetail(id_product)
+		data = JSON.parse(JSON.stringify(data))
+		data['product']=dataProduct
+		//console.log("product"+JSON.stringify(data['product']))
+		showCart(data);
+	}
+	updateTotalMoney();
+} 
 
-            }
-        });
-    }
 
+var urlCartAPI = '<c:url value="/CartAPI" />'
+
+function updateTotalMoney(){
+	var data;
+	$.ajax({
+		  url: urlCartAPI,
+		  type: 'get',
+		  success: function (res, status) {
+			 console.log('done');
+				data=JSON.parse(res)
+
+		  },
+		  error: function (xhr, desc, err) {
+		    console.log(xhr);
+		    console.log("Desc: " + desc + "\nErr:" + err);
+		  },
+		  async: false
+		});
+	 var sumMoney = (!data['totalMoney'])?0:data['totalMoney']
+	 document.getElementById('Cart-totalMoney').innerText=sumMoney
+}
+updateTotalMoney()
+showListCart()
+
+
+function clearCartContainner(){
+	listCartContainer.innerHTML=""
+	document.getElementById('Cart-totalMoney').innerText=0
+}
+function deleteCart(id_product){
+	if(!confirm("Do you want to remove it?")){
+		return;
+	}
+
+	$.ajax({
+		  url: urlCartAPI+"?pid="+id_product,
+		  type: 'delete',
+		  success: function (data, status) {
+			 console.log('done');
+			 if(data=='true'){
+				 var cartItem= document.getElementById("cart-item"+id_product);	
+				 cartItem.remove()
+				 updateTotalMoney()
+			 }
+			 else {
+				 alert("server hiện quá tải! vui lòng thử lại sau");
+			 }
+		  },
+		  error: function (xhr, desc, err) {
+		    console.log(xhr);
+		    console.log("Desc: " + desc + "\nErr:" + err);
+		  },
+		  async: false
+		});
+}
+
+function plusCart(id_product){
+		var data={
+				id_product: id_product,
+				amount: 1
+		}
+		$.ajax({
+			  url: urlCartAPI,
+			  type: 'post',
+			  data: JSON.stringify(data),
+			  success: function (data, status) {
+				 console.log('done');
+				 if(data=='true'){
+					var cartAmountElement = document.getElementById("Cart-amount-value"+id_product);
+					 var amount =parseInt(String(cartAmountElement.innerText));
+					 cartAmountElement.innerText=amount+1;
+					 updateTotalMoney();
+				 }
+				 else {
+					 alert("loi");
+				 }
+			  },
+			  error: function (xhr, desc, err) {
+			    console.log(xhr);
+			    console.log("Desc: " + desc + "\nErr:" + err);
+			  },
+			  async: false
+			});
+	}
+
+function minusCart(id_product){
+	var cartAmountElement = document.getElementById("Cart-amount-value"+id_product);
+	var amount =parseInt(String(cartAmountElement.innerText));
+	if(amount==1){
+		return deleteCart(id_product)
+	}
+	var data={
+			id_product: id_product,
+			amount: -1
+	}
+	$.ajax({
+		  url: urlCartAPI,
+		  type: 'post',
+		  data: JSON.stringify(data),
+		  success: function (data, status) {
+			 console.log('done');
+			 if(data=='true'){
+				 cartAmountElement.innerText=amount-1;
+				 updateTotalMoney()
+			 }
+			 else {
+				 alert("loi");
+			 }
+		  },
+		  error: function (xhr, desc, err) {
+		    console.log(xhr);
+		    console.log("Desc: " + desc + "\nErr:" + err);
+		  },
+		  async: false
+		});
+}
+
+var urlBillAPI = '<c:url value="/BillAPI" />'
+$('#Bill-pay').click(function(){
+	if(!confirm("Xác nhận mua hàng?")){
+		return;
+	}
+	var data={
+			city_ship: 'Ha Noi',
+	}
+	$.ajax({
+		  url: urlBillAPI,
+		  type: 'post',
+		  data: JSON.stringify(data),
+		  success: function (data, status) {
+			 console.log('done');
+			 if(data=='true'){
+				 clearCartContainner()	
+				 alert("Đặt món thành công!!! vui lòng check mail để xem hoá đơn")
+				 }
+			 else {
+				 alert("loi");
+			 }
+		  },
+		  error: function (xhr, desc, err) {
+		    console.log(xhr);
+		    console.log("Desc: " + desc + "\nErr:" + err);
+		  },
+		  async: false
+		});
+})
 
 </script>
-
-<script type="text/javascript" src="/assets/js/scriptCart.js"></script>
-</body>
-
-
-
