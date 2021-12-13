@@ -53,7 +53,7 @@ public class CartServiceImpl implements CartService{
 	
 	public static void main(String args[]) {
 		CartServiceImpl s = new CartServiceImpl();
-		System.out.print(s.getCart(1, 2));
+		System.out.print(s.getTotalMoney(1));
 	}
 
 	@Override
@@ -78,5 +78,6 @@ public class CartServiceImpl implements CartService{
 		}
 		return amount;
 	}
+	
 	
 }

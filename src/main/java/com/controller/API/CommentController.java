@@ -82,6 +82,7 @@ public class CommentController extends HttpServlet {
 			 }
 				 
 		 JsonElement root = new JsonParser().parse(new String(jb)); 
+		
 		 int id_user = 1;
 		 int id_product = root.getAsJsonObject().get("id_product").getAsInt();
 

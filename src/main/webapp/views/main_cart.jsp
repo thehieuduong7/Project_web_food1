@@ -77,6 +77,7 @@
 				<span id="Cart-totalMoney">
 				132.00
 				</span>
+				<span>đồng</span>
 				</div>
 			</div>
 			<div class="row">
@@ -85,12 +86,11 @@
 					<h4><strong>Shipping</strong></h4>
 				</div>
 				<div class="col text-right mr-20">&euro;
-					<span id="Shipping-price">132.00</span>
+					<span id="Shipping-price">00</span><span>đồng</span>
 				 </div>
 
-				<select class="form-select" aria-label="Default select example">
+				<select id="Shipping-select" class="form-select" aria-label="Default select example">
 					<option selected>Open this select menu</option>
-					<option value="1">One</option>
 
 				</select> 
 			
@@ -105,7 +105,10 @@
 				<div class="col text-right mr-20">&euro; 
 				<span id="Bill-money-value">
 					137.00
-				</span></div>
+				</span>
+				<span>đồng</span>
+			
+				</div>
 			</div>
 			<button class="btn row" id="Bill-pay" style="width:100%;">PAY</button>
 
@@ -146,6 +149,7 @@ var listCartContainer= document.getElementById('List-cart-container')
 function showCart(data){
 	var product = data['product']
 	var id_product = data['id_product']
+	var photo=product['photo']
 	var name_food=product['name_food']
 	var id_category = product['id_category']
 	var price =parseFloat(product['price'])
@@ -158,15 +162,13 @@ function showCart(data){
 		<div class="row border-top border-bottom">
 		<div class="row main align-items-center">
 			<div class="col-2">
-				<img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg">
+				<img class="img-fluid" src="`
+				+photo+
+				`">
 			</div>
 			<div class="col-2">
 				<div class="row text-muted" style="font-size:15px;">`+name_food+`</div>
 				<div class="row">`+id_category+`</div>
-				
-				
-	
-				
 			</div>
 			<div class="col-6">
 				
@@ -239,8 +241,12 @@ function updateTotalMoney(){
 		  },
 		  async: false
 		});
-	 var sumMoney = (!data['totalMoney'])?0:data['totalMoney']
+	 var sumMoney = parseFloat(!data['totalMoney'])?0:data['totalMoney']
 	 document.getElementById('Cart-totalMoney').innerText=sumMoney
+	 
+	 var ship_price = parseFloat(document.getElementById('Shipping-price').innerText)
+	 
+	 document.getElementById('Bill-money-value').innerText=sumMoney+ship_price
 }
 updateTotalMoney()
 showListCart()
@@ -343,8 +349,9 @@ $('#Bill-pay').click(function(){
 	if(!confirm("Xác nhận mua hàng?")){
 		return;
 	}
+	var city= document.getElementById("Shipping-select").value
 	var data={
-			city_ship: 'Ha Noi',
+			city_ship: city,
 	}
 	$.ajax({
 		  url: urlBillAPI,
@@ -354,6 +361,8 @@ $('#Bill-pay').click(function(){
 			 console.log('done');
 			 if(data=='true'){
 				 clearCartContainner()	
+				 initSelectShip()
+				updateTotalMoney()
 				 alert("Đặt món thành công!!! vui lòng check mail để xem hoá đơn")
 				 }
 			 else {
@@ -367,5 +376,50 @@ $('#Bill-pay').click(function(){
 		  async: false
 		});
 })
+
+var listShip = (${listShip})
+var ship_select = document.getElementById("Shipping-select");
+var ship_price =  document.getElementById("Shipping-price");
+function changeShipItem(){
+	var city = ship_select.value
+	var price_ship;
+	for (var i of listShip){
+		if(i['city_ship']==city){
+			price_ship=i['price_ship']
+			break;
+		}
+	}
+	if(!city || !price_ship){
+		ship_price.innerText="00";
+		return;
+	}
+	 ship_price.innerText=price_ship;
+}
+ship_select.onchange=function(){
+	changeShipItem()
+	updateTotalMoney()
+
+}
+function initSelectShip(){
+	ship_select.selectedIndex=0;
+}
+function initShipItem(data){
+	var city_name=data['city_ship']
+	var ship_price=data['price_ship']
+	var div = document.createElement("option");
+	div.value=city_name
+	'<option value="1">One</option>'
+	
+	content =city_name+' ('+ship_price+'đ)'
+ 	div.innerHTML=content
+ 	ship_select.appendChild(div)
+}
+function initShipSelect(){
+	
+	for (var i of listShip){
+		initShipItem(i)
+	}
+}
+initShipSelect()
 
 </script>

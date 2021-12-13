@@ -31,9 +31,10 @@
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <!-- Slick -->
     <link href="<c:url value="/assets/css/style.css" />" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">   
-   
-    <style>
+	
+
+
+<style>
     .wrap-icon-cart{
         display: inline-block;
     }
@@ -54,7 +55,7 @@
 <body>
 
 <!-- header -->
-<%@ include file="/common/web/header.jsp" %>
+<%@ include file="/common/seller/header.jsp" %>
 <!-- end header -->
 
 <!-- content -->
@@ -64,7 +65,7 @@
 <!-- end content -->
 
 <!-- footer -->
-<%@ include file="/common/web/footer.jsp" %>
+<%@ include file="/common/seller/footer.jsp" %>
 <!--end footer -->
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

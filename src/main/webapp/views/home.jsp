@@ -55,7 +55,7 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
             </div>
-            <span> ${pro.getPrice()}đồng </span>
+            <span > ${pro.getPrice()}đồng </span>
             <button class="btn" onclick="plusCart(${pro.getId_product()})">
                 <i class="fas fa-shopping-basket"></i>
                 Thêm vào giỏ</button>

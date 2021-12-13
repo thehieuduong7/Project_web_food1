@@ -16,8 +16,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.models.CartModel;
+import com.models.ShipModel;
 import com.service.CartService;
+import com.service.ShippingService;
 import com.service.impl.CartServiceImpl;
+import com.service.impl.ShippingServiceImpl;
 
 /**
  * Servlet implementation class CartController
@@ -45,12 +48,15 @@ public class CartController extends HttpServlet {
         
         int id_user = 1;
         CartService cartSer = new CartServiceImpl();
+        ShippingService shipSer = new ShippingServiceImpl();
+        
         List<CartModel> listCart = cartSer.getByIDUser(id_user);
         
-        
+        List<ShipModel> listShip= shipSer.getAll();
         
         request.setAttribute("listCart", gson.toJson(listCart));
-        
+        request.setAttribute("listShip", gson.toJson(listShip));
+
         RequestDispatcher rq = request.getRequestDispatcher("/views/main_cart.jsp");
         rq.forward(request, response);
 	}

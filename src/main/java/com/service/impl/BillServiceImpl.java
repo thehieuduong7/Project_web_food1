@@ -11,9 +11,11 @@ import com.DAO.Impl.ProductDAOImpl;
 import com.models.BillDetailModel;
 import com.models.BillModel;
 import com.models.CartModel;
+import com.models.ShipModel;
 import com.service.BillService;
 import com.service.CartService;
 import com.service.ProductService;
+import com.service.ShippingService;
 
 public class BillServiceImpl implements BillService {
 	BillDAO billDAO = new BillDAOImpl();
@@ -49,7 +51,16 @@ public class BillServiceImpl implements BillService {
 	@Override
 	public boolean payment(int id_user,String city_ship) {
 		CartService cartSer = new CartServiceImpl();
+		ShippingService shipSer = new ShippingServiceImpl();
 		float total_money = cartSer.getTotalMoney(id_user);
+		List<ShipModel> listShip = shipSer.getAll();
+		float price_ship=0;
+		for (ShipModel i: listShip) {
+			if(i.getCity_ship().trim().equals(city_ship.trim())) {
+				price_ship=i.getPrice_ship();
+			}
+		}
+		total_money+=price_ship;
 		BillModel bill = new BillModel(-1, id_user,city_ship , 
 				new Date(System.currentTimeMillis()),total_money);
 		ProductService proSer = new ProductServiceImpl();
@@ -60,7 +71,7 @@ public class BillServiceImpl implements BillService {
 			int amount = cart.getAmount();
 			float price = proSer.getPrice(id_pro);
 			
-			BillDetailModel detail = new BillDetailModel(-1, -1, id_pro, amount,price);
+			BillDetailModel detail = new BillDetailModel(-1, -1, id_pro, amount,price*amount);
 			listDetail.add(detail);
 		}
 		
@@ -69,7 +80,7 @@ public class BillServiceImpl implements BillService {
 	
 	public static void main(String args[]) {
 		BillServiceImpl ser = new BillServiceImpl();
-		System.out.print(ser.payment(1, "Ha Noi"));
+		System.out.print(ser.payment(1, "Sai Gon"));
 	}
 
 }
