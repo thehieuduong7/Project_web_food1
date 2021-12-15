@@ -7,12 +7,16 @@
 <div class="container" style="margin-top:15em;">
 
 <div class="row mt-5">
-		<div class="row">
+		<div id="tkThangContainer" class="row">
+		
+		
+		
+		<div class="row" id="">
 			<div class="" style="justify-content:center;display:flex">
 				<h1 class="display-1" style="margin-bottom: 20px; font-weight:bold; font-size:40px;
-				 color:#192a56">THỐNG KÊ THÁNG</h1>
+				 color:#192a56">THONG KE THANG</h1>
 			</div>
-			<div class="row">
+			<div class="row" id="input_search_thang">
 				<div class="form-group">
 					<label for="thongKeThang-inputThang" class="col-1 col-form-label"
 						style="font-size: 14px; font-weight: 400; display: inline;">Month:</label>
@@ -30,11 +34,22 @@
 					</div>
 					
 					<button class=" coL-2 btn btn-primary" onclick="table_thang_click()"
-					style="padding: 3px 10px; font-size: 14px;
+					style="padding: 3px 10px; font-size: 14px; min-width: 100px;
 					margin-left:14px;">Xem</button>
+					<button class=" coL-2 btn btn-primary" onclick=""
+					style="padding: 3px 10px; font-size: 14px;
+					margin-left:14px; min-width: 100px;" 
+					id="savePDFThang"
+					>Save PDF</button>
+					
 				</div>
 			</div>
-			<table class="table table-bordered mt-5" style="width: 70%;margin-left: 20px;">
+			
+			
+			
+		</div>
+		<div class="row" id="thongkethangshow">
+		<table class="table table-bordered mt-5" style="width: 70%;margin-left: 20px;">
 				<thead>
 					<tr>
 						<th style="width: 10%;">ID product</th>
@@ -48,34 +63,45 @@
 				</tbody>
 			</table>
 			
-			
+			<div class="row" id="chart-thang"></div>
 		</div>
-		<div class="row" id="chart-thang"></div>
 		
+		</div>
 
 		<div class="row" style=" margin-top: 50px; border: 1px solid #0d6efd; width:100%;"></div>
-
-		<div class="row" style="margin-top:40px;">
+	
+		<div class="row" id="tkNamContainer">
+		<div class="row" style="margin-top:40px;" >
 			<div style="display:flex;justify-content:center;">
 				<h1 class="display-1"
-					style="margin-bottom: 20px; font-weight: bold; font-size: 40px; color: #192a56">THỐNG
-					KÊ NĂM</h1>
+					style="margin-bottom: 20px; font-weight: bold; font-size: 40px; color: #192a56">THONG KE NAM</h1>
 			</div>
-			<div class="row">
+			<div class="row" id="input_search_nam">
 				<div class="form-group">
+					
+					<div class="col-sm-5">
 					<label for="thongKeNam-inputNam" class="col-form-label"
 						style="font-size: 14px; font-weight: 400; display: inline;">Year:</label>
-					<div class="col-sm-5">
 						<input type="number" min="1" max="12" class="form-control"
 							id="thongKeNam-inputNam" placeholder="nhập năm">
 					</div>
 					<button class="btn btn-primary" onclick="table_nam_click()"
-					style="padding: 3px 10px; font-size: 14px;
+					style="padding: 3px 10px; font-size: 14px;min-width: 100px;
 					margin-left:14px;">Xem</button>
+					
+					<button class=" coL-2 btn btn-primary" onclick=""
+					style="padding: 3px 10px; font-size: 14px;
+					margin-left:14px; min-width: 100px;" 
+					id="savePDFNam"
+					>Save PDF</button>
 				</div>
 				
 			</div>
-			<table class="table table-bordered mt-5" style="width: 70%;margin-left: 20px;">
+			
+		</div>
+		<div class="row" id="thongKeNamShow">
+			<table class="table table-bordered mt-5"
+				style="width: 70%; margin-left: 20px;">
 				<thead>
 					<tr>
 						<th style="width: 10%;">Month</th>
@@ -86,10 +112,12 @@
 				<tbody id="table-nam">
 
 				</tbody>
-			</table>			
-		</div>
-		<div class="row" id="chart-nam"></div>
+			</table>
 
+			<div class="row" id="chart-nam"></div>
+		</div>
+		</div>
+		
 </div>
 
 
@@ -97,6 +125,8 @@
  </div>    
 	<!--Div for our chart -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+
 
  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
@@ -157,7 +187,7 @@
     			<td style="width:10%;">`+id_product+`</td>
                 <td style="width:40%;">`+name_food+`</td>
                 <td style="width:15%;">`+total_amount+`</td>
-                <td style="width:30%;">`+total_money+` đồng</td>
+                <td style="width:30%;">`+total_money+` dong</td>
     		`
     		div.innerHTML= content
     		table_thang.appendChild(div)
@@ -246,7 +276,7 @@
     		content=`
     			<td style="width:10%;">`+month+`</td>
                 <td style="width:20%;">`+total_amount+`</td>
-                <td style="width:70%;">`+total_money+` đồng</td>
+                <td style="width:70%;">`+total_money+` dong</td>
     		`
     		div.innerHTML= content
     		table.appendChild(div)
@@ -293,5 +323,66 @@
 		
     	table_nam_click()
 		
-        
-    </script>
+       
+    
+/* <div id="editor"></div>
+<button id="cmd">Generate PDF</button> */
+	//window.jsPDF = window.jspdf.jsPDF;
+	//window.jsPDF = require('jspdf');
+     var doc = new jsPDF('p', 'pt', 'letter');
+ 
+    var specialElementHandlersThang = {
+        '#input_search_thang': function (element, renderer) {
+        	var month =document.getElementById('thongKeThang-inputThang').value
+        	var year =document.getElementById('thongKeThang-inputNam').value
+
+            element.innerHTML="<h3>Thang: "+month+" Nam: "+year+"</h3>";
+            	return false;
+        } 
+    };
+
+    $('#savePDFThang').click(function () {
+        doc.fromHTML($('#tkThangContainer').html(), 60, 100, {
+            'width': 1000,
+            'elementHandlers': specialElementHandlersThang
+        });
+        doc.save('ThongKeThang.pdf');
+    });
+    var specialElementHandlersNam = {
+           
+    	    '#input_search_nam': function (element, renderer) {
+    	    	var year =document.getElementById('thongKeNam-inputNam').value
+    	
+    	        element.innerHTML="<h3>Nam: "+year+"</h3>";
+    	        	return false;
+    	    } 
+        };
+
+    $('#savePDFNam').click(function () {
+        doc.fromHTML($('#tkNamContainer').html(), 50, 50, {
+            'width': 1000,
+            'elementHandlers': specialElementHandlersNam
+        });
+        doc.save('ThongKeNam.pdf');
+    });
+    // This code is collected but useful, click below to jsfiddle link.
+	/*
+    const html2canvas = require('html2canvas');
+
+    $(function() { 
+    $("#savePDFThang").click(function() { 
+        html2canvas($("#tkThangContainer"), {
+            onrendered: function(canvas) {
+                theCanvas = canvas;
+
+
+                canvas.toBlob(function(blob) {
+                    saveAs(blob, "Dashboard.png"); 
+                });
+            }
+        });
+    });
+});*/
+ </script>
+    
+    

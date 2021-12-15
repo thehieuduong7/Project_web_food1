@@ -14,6 +14,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductModel> getTop4() {
 		List<ProductModel> list  = proDAO.getAll();
+		if(list==null) return null;
 		if(list.size()<4) return list;
 		return list.subList(0, 4);
 
@@ -39,7 +40,8 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public int countAll(List<ProductModel> list) {
-		return list.size();
+		
+		return (list!=null)?list.size():null;
 	}
 
 	@Override

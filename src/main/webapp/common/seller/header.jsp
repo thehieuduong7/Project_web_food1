@@ -11,7 +11,7 @@
     <div class="icons">
            <a href="<c:url value="/seller/products"/>" class="fas fa-stream"></a>        
     
-          <a href="<c:url value="/StatisticsController"/>" class="fas fa-chart-line"></a>
+          <a href="<c:url value="/seller/StatisticsController"/>" class="fas fa-chart-line"></a>
         
 	     <a href="<c:url value="/logout"/>" class="fas fa-user-times"></a>
     </div>
