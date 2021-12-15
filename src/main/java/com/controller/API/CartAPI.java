@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.controller.login.SessionController;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.models.UserLoginModel;
 import com.service.CartService;
 import com.service.impl.CartServiceImpl;
 
@@ -40,10 +42,16 @@ public class CartAPI extends HttpServlet {
 		response.setContentType("text/htm");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+		
+		int id_user=u.getId_user();
 		PrintWriter out = response.getWriter();
 		CartService cartSer = new CartServiceImpl();
 		try {
-			 int id_user =1;
 		     Map<String, Object> data = new HashMap<String, Object>();
 		     data.put("totalMoney", cartSer.getTotalMoney(id_user));
 		     data.put("totalAmount", cartSer.getTotalAmount(id_user));
@@ -58,11 +66,18 @@ public class CartAPI extends HttpServlet {
 		response.setContentType("text/htm");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+		int id_user = u.getId_user();
+		
 		PrintWriter out = response.getWriter();
 		boolean res;
 		try {
 			int id_product=Integer.parseInt(request.getParameter("pid")) ;
-			 int id_user =1;
 			 
 			 CartService cartSer = new CartServiceImpl();
 			 res = cartSer.removeCart(id_user, id_product);
@@ -80,6 +95,13 @@ public class CartAPI extends HttpServlet {
 		response.setContentType("text/htm");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+		 int id_user =u.getId_user();
 
 		
 		 StringBuffer jb = new StringBuffer(); String line = null; 
@@ -92,7 +114,6 @@ public class CartAPI extends HttpServlet {
 		 JsonElement root = new JsonParser().parse(new String(jb));
 		 int id_product = root.getAsJsonObject().get("id_product").getAsInt();
 		 int amount = root.getAsJsonObject().get("amount").getAsInt();
-		 int id_user =1;
 		 
 		 
 		 CartService cartSer = new CartServiceImpl();

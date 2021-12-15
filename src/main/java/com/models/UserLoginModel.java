@@ -6,9 +6,6 @@ import java.util.Date;
 public class UserLoginModel {
 	int id_user;
 	String full_name;
-	Date dob;
-	String std;
-	Image avatar;
 	String username;
 	String password;
 	String role;
@@ -23,24 +20,6 @@ public class UserLoginModel {
 	}
 	public void setFull_name(String full_name) {
 		this.full_name = full_name;
-	}
-	public Date getDob() {
-		return dob;
-	}
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-	public String getStd() {
-		return std;
-	}
-	public void setStd(String std) {
-		this.std = std;
-	}
-	public Image getAvatar() {
-		return avatar;
-	}
-	public void setAvatar(Image avatar) {
-		this.avatar = avatar;
 	}
 	public String getUsername() {
 		return username;
@@ -60,24 +39,19 @@ public class UserLoginModel {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public UserLoginModel(int id_user, String full_name, Date dob, String std, Image avatar, String username,
+	public UserLoginModel(int id_user, String full_name, String username,
 			String password, String role) {
 		super();
 		this.id_user = id_user;
 		this.full_name = full_name;
-		this.dob = dob;
-		this.std = std;
-		this.avatar = avatar;
+		
 		this.username = username;
 		this.password = password;
 		this.role = role;
 	}
-	public UserLoginModel(String full_name, Date dob, String std, Image avatar, String username,
+	public UserLoginModel(String full_name,String username,
 			String password, String role) {
 		this.full_name = full_name;
-		this.dob = dob;
-		this.std = std;
-		this.avatar = avatar;
 		this.username = username;
 		this.password = password;
 		this.role = role;

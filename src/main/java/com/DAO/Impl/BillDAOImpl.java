@@ -11,8 +11,8 @@ import java.util.List;
 
 import com.DAO.BillDAO;
 import com.DAO.CartDAO;
-import com.controller.DBConnect;
-import com.controller.DBConnectMySQL;
+import com.controller.config.DBConnect;
+import com.controller.config.DBConnectMySQL;
 import com.models.BillDetailModel;
 import com.models.BillModel;
 

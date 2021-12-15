@@ -10,8 +10,11 @@
 
 
 			<!-- col end -->
-			<div class="col-8 col-md-8" style="border: 1px solid red;">
-				<div class="row" style="height:500px; border: 1px solid blue;"></div>
+			<div class="col-8 col-md-8" style="">
+				<div class="row" style="height:500px; ">
+				            <img src="<c:url value="${product.getPhoto()}"/>" width= "70%" height="100%">
+				
+				</div>
 				
 				<div class="row">
 					<h1 class mt-15>Bài viết đánh giá</h1>
@@ -24,11 +27,13 @@
 							<label for="usr">Name:</label>
 							<div class="row">
 							
-							 <input type="text" class="form-control" style="height:50px;" id="comment-write-text"
+							 <input type="text" class="form-control" style="height:60px; font-size:14px;
+							 	font-weight:700;
+							 " id="comment-write-text"
 							 placeholder="Comment about food!!!"
 							 >
 							<button type="button" id="comment-write-btn"
-							class="btn btn-info input-group-append" style="height:30px;">Comment</button>
+							class="btn btn-info input-group-append col-3" style="height:50px;">Comment</button>
 						
 							</div>
 	
@@ -47,7 +52,6 @@
 					<div class="card-body">
 						<h1 style="margin-top: 10px;" class="h2"
 							style="font-size: 30px; font-weight: 500 !important;">${product.getName_food()}</h1>
-						<p class="h3 py-2" style="font-size: 22px !important;">${food.priceCurrencyFormat}</p>
 						<p class="py-2">
 							<i class="fa fa-star text-warning"></i> <i
 								class="fa fa-star text-warning"></i> <i
@@ -104,7 +108,6 @@
 					
 					
 					
-					
 				</div>
 		</div>
 	</div>
@@ -128,8 +131,10 @@ var cmt_container = document.getElementById("comment-container")
 function clearCMT(){
 	cmt_container.innerHTML=''
 }
-function showCMT(data){
+function showCMT(dataCMT){
+	var data=dataCMT['comment']
 	var id_user = data['id_user']
+	var full_name=dataCMT['full_name']
 	var content=data['content']
 	var time_cmt = data['time_cmt']
 	var div_cmt = document.createElement("div");
@@ -137,16 +142,15 @@ function showCMT(data){
 	var content_div = `
 		<div class="card" style="width: 100%;">
 		<div class="card-body">
-			<h5 class="card-title float-left">`+id_user+`</h5>
+			<h5 class="card-title float-left" style="font-weight:700; font-size:14px;">`+full_name+`</h5>
 			<div style="clear:both;"></div>
 			<p class="card-text">`+content+`</p>
-			<h5 class="card-title float-right">Time: `+time_cmt+`</h5>
+			<h5 class="card-title float-right" style="font-weight:700;">Time: `+time_cmt+`</h5>
 			<div style="clear: both;"></div>
 		</div>
 	`
 	div_cmt.innerHTML = content_div
 	cmt_container.appendChild(div_cmt);
-	
 }
 function getListCMT(){
 	clearCMT()
@@ -156,6 +160,7 @@ function getListCMT(){
 			return;
 		}
 		for (let data of list_cmt){
+			//console.log(data)
 			showCMT(data);
 		}
 	},);
@@ -170,8 +175,6 @@ function sendCMT(){
 		//return;
 	}
 }
-
-
 
 $("#comment-write-btn").click(function()
 		{

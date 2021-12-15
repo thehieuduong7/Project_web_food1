@@ -29,7 +29,7 @@
 					<div class="row border-top border-bottom">
 						<div class="row main align-items-center">
 							<div class="col-2">
-								<img class="img-fluid" src="https://i.imgur.com/pHQ3xT3.jpg">
+						 <img class="img-fluid"  src="<c:url value="${product.getPhoto()}"/>" width= "70%" height="100%">
 							</div>
 							<div class="col-2">
 								<div class="row text-muted"></div>
@@ -142,6 +142,7 @@ function getProductDetail(id_product){
 	return dataPro
 }
 
+var urlBaseProject = "<c:url value="/"/>"
 
 var listCartContainer= document.getElementById('List-cart-container')
 
@@ -149,7 +150,7 @@ var listCartContainer= document.getElementById('List-cart-container')
 function showCart(data){
 	var product = data['product']
 	var id_product = data['id_product']
-	var photo=product['photo']
+	var photo=urlBaseProject+product['photo']
 	var name_food=product['name_food']
 	var id_category = product['id_category']
 	var price =parseFloat(product['price'])

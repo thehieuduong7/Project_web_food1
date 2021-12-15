@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.DAO.ProductDAO;
-import com.controller.DBConnect;
-import com.controller.DBConnectMySQL;
+import com.controller.config.DBConnect;
+import com.controller.config.DBConnectMySQL;
 import com.models.CategoryModel;
 import com.models.ProductModel;
 
@@ -33,9 +33,10 @@ public class ProductDAOImpl implements ProductDAO {
 				float price=rs.getFloat(5);
 				String description=rs.getString(6);
 				//byte[] photo = rs.getBytes(7);
+				String photo= rs.getString(7);
 				float salePrice= rs.getFloat(8);
 				list.add(new ProductModel(id_product,name_food,id_category,
-						id_seller,price,description,null,salePrice));
+						id_seller,price,description,photo,salePrice));
 			}
 			if(list.isEmpty()==true) return null;
 			return list;
@@ -57,7 +58,7 @@ public class ProductDAOImpl implements ProductDAO {
 			ps.setInt(3, product.getId_seller());
 			ps.setFloat(4,product.getPrice());
 			ps.setString(5, product.getDescription());
-			ps.setBytes(6, null);
+			ps.setString(6, product.getPhoto());
 			ps.setFloat(7,product.getSalePercent());
 			if(0!=ps.executeUpdate())
 			return true;		// trong model co ham` covert ResultSet -> List<>
@@ -73,7 +74,7 @@ public class ProductDAOImpl implements ProductDAO {
 	public boolean update(ProductModel product) {
 		String query ="Update Product set name_food=?,"
 				+ "id_category=?,id_seller=?,price=?,"
-				+ "description=?,photo=?,salePrice=? "
+				+ "description=?,photo=?,salePercent=? "
 				+ "where id_product=?";
 		try {
 			ps=conn.prepareStatement(query);
@@ -82,7 +83,7 @@ public class ProductDAOImpl implements ProductDAO {
 			ps.setInt(3, product.getId_seller());
 			ps.setFloat(4,product.getPrice());
 			ps.setString(5, product.getDescription());
-			ps.setBytes(6, null);
+			ps.setString(6,product.getPhoto());
 			ps.setFloat(7,product.getSalePercent());
 			ps.setInt(8, product.getId_product());
 			if(ps.executeUpdate()!=0)
@@ -90,6 +91,7 @@ public class ProductDAOImpl implements ProductDAO {
 			else return false;
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -210,9 +212,10 @@ public class ProductDAOImpl implements ProductDAO {
 		//pro = new CategoryModel(1, "Apple", "fa fa-apple");
 		//System.out.print(dao.testAdd(pro));
 		
-		ProductModel pro = new ProductModel("Banh Chung1",2,1,15000f,"god",null,0);
+		ProductModel pro = dao.getByID(12);
+		pro.setName_food("cake ngon");
 		//System.out.print(pro.getName_food());
-		System.out.print(dao.insert(pro));
+		System.out.print(dao.update(pro));
 	}
 
 

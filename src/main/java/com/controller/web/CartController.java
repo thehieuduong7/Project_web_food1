@@ -11,12 +11,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.controller.login.SessionController;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.models.CartModel;
 import com.models.ShipModel;
+import com.models.UserLoginModel;
 import com.service.CartService;
 import com.service.ShippingService;
 import com.service.impl.CartServiceImpl;
@@ -46,7 +49,13 @@ public class CartController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        int id_user = 1;
+        
+        UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+        
+        int id_user = u.getId_user();
         CartService cartSer = new CartServiceImpl();
         ShippingService shipSer = new ShippingServiceImpl();
         

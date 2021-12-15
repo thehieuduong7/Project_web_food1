@@ -1,11 +1,11 @@
-package com.service;
+package com.DAO;
 
 import java.util.List;
 
 import com.models.CategoryModel;
 
+public interface CategoryDAO {
 
-public interface CategoryService {
 	public List<CategoryModel> getAll();
 	public CategoryModel searchByID(int id);
 }

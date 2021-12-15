@@ -1,28 +1,26 @@
-package com.controller.seller;
+package com.controller.login;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.controller.login.SessionController;
 import com.models.UserLoginModel;
 
 /**
- * Servlet implementation class StatisticsController
+ * Servlet implementation class WaitingController
  */
-@WebServlet("/seller/StatisticsController")
-public class StatisticsController extends HttpServlet {
+@WebServlet("/waiting")
+public class WaitingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StatisticsController() {
+    public WaitingController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +30,21 @@ public class StatisticsController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		response.setContentType("text/htm");
-		response.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");	
-		UserLoginModel u = SessionController.getUserLogin(request, response);
-		if(u==null) {
-			return;
+
+		HttpSession session= request.getSession();
+		if(session != null && session.getAttribute("UserLogin") != null) {
+			UserLoginModel u=(UserLoginModel) session.getAttribute("UserLogin");
+			request.setAttribute("username", u.getUsername());
+			if(u.getRole().trim().equals("admin")) {
+			response.sendRedirect(request.getContextPath()+"/admin/home");
+			}else if(u.getRole().trim().equals("seller")) {
+				response.sendRedirect(request.getContextPath()+"/seller/home");
+			}else {
+				response.sendRedirect(request.getContextPath()+"/web/home");
+			}
+		}else {
+			response.sendRedirect(request.getContextPath()+"/login");
 		}
-		if(!u.getRole().trim().equals("seller")) {
-			return;
-		}
-		RequestDispatcher rq = request.getRequestDispatcher("/views/seller/StatisticsSeller.jsp");
-		rq.forward(request, response);
 	}
 
 	/**

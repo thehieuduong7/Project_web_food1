@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.controller.login.SessionController;
 import com.google.gson.Gson;
+import com.models.UserLoginModel;
 import com.service.StatisticsService;
 import com.service.impl.StatisticsServiceImpl;
 
@@ -37,9 +39,14 @@ public class StatisticsAPI extends HttpServlet {
 		response.setContentType("text/htm");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+		
 		 PrintWriter out = response.getWriter();
 		 StatisticsService staSer= new StatisticsServiceImpl();
-		int id_user =1;
+		int id_user =u.getId_user();
 		String res="";
 		 try {
 			String kind = request.getParameter("kind").trim();

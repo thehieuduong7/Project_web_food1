@@ -270,17 +270,17 @@
             //define rows of data
             var detail =dataNam['detail']
             for (let i of detail){
-            	var month= String(i['month'])
+            	var month= "Tháng "+String(i['month'])
             	var total_money=i['total_money']
             	dataTable.addRow([month,total_money])
             }
             
             //dataTableThang.addRows([['JSP & Servlet', 20], ['Spring',12],['Struts',7]]);
             //instantiate our chart object
-            var chart = new google.visualization.ColumnChart(document.getElementById('chart-nam'));
+            var chart = new google.visualization.PieChart(document.getElementById('chart-nam'));
 
             //define options for visualization
-            var options = {height: 500, is3D: false, title: 'Doanh thu Năm'};
+            var options = {height: 500, is3D: true, title: 'Doanh thu Năm'};
             //draw our chart
             chart.draw(dataTable, options);
         }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.DAO.ShippingDAO;
-import com.controller.DBConnectMySQL;
+import com.controller.config.DBConnectMySQL;
 import com.models.ShipModel;
 
 public class ShippingDAOImpl implements ShippingDAO{

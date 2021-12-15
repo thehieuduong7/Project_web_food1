@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.controller.login.SessionController;
 import com.models.CartModel;
 import com.models.ProductModel;
+import com.models.UserLoginModel;
 import com.service.CartService;
 import com.service.CategoryService;
 import com.service.ProductService;
@@ -41,6 +43,13 @@ public class ProductDetailController extends HttpServlet {
         response.setContentType("text/htm");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
+        
+
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+        int id_user= u.getId_user();
         int id;
         try {
             id = Integer.parseInt(request.getParameter("pid"));
@@ -56,11 +65,11 @@ public class ProductDetailController extends HttpServlet {
         
         CategoryService cateSer = new CategoryServiceImpl();
         request.setAttribute("cate", "cake");
-
+        
         
         
         CartService cartSer = new CartServiceImpl();
-        CartModel cart = cartSer.getCart(1, id);
+        CartModel cart = cartSer.getCart(id_user, id);
         
         
         request.setAttribute("amount", (cart==null)?0:cart.getAmount());

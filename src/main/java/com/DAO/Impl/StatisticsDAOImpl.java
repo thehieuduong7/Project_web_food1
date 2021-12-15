@@ -11,7 +11,7 @@ import java.util.Map;
 
 import com.DAO.ProductDAO;
 import com.DAO.StatisticsDAO;
-import com.controller.DBConnectMySQL;
+import com.controller.config.DBConnectMySQL;
 import com.google.gson.Gson;
 import com.models.ProductModel;
 
@@ -22,7 +22,7 @@ public class StatisticsDAOImpl implements StatisticsDAO{
 	private ResultSet rs=null;
 	@Override
 	public Map<String, Object> getTongTienDaMua(int id_user) {
-		String query = "select * from tongtiendamua where id_user=?";
+		String query = "select * from thongkedamua where id_user=?";
 		
 		try {
 			ps=conn.prepareStatement(query);
@@ -32,10 +32,12 @@ public class StatisticsDAOImpl implements StatisticsDAO{
 			map.put("id_user", id_user);
 			List<Map<String,Object>> list= new ArrayList<>();
 			while(rs.next()) {
-				float total_money=rs.getFloat(1);
-				int month=rs.getInt(1);
-				int year= rs.getInt(2);
+				float total_amount=rs.getInt(2);
+				float total_money=rs.getFloat(3);
+				int month=rs.getInt(4);
+				int year= rs.getInt(5);
 				Map<String,Object> mapSub = new HashMap<>();
+				mapSub.put("total_amount", total_amount);
 				mapSub.put("total_money", total_money);
 				mapSub.put("month", month);
 				mapSub.put("year", year);
@@ -51,7 +53,7 @@ public class StatisticsDAOImpl implements StatisticsDAO{
 	}
 	@Override
 	public Map<String, Object> getDoanhThuNam(int id_seller, int year) {
-		String query = "select * from thanhthunam "
+		String query = "select * from doanhthunam "
 				+ "where id_seller=? and year=?";
 		
 		try {

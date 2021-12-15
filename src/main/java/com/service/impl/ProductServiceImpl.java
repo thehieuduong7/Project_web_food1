@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.DAO.ProductDAO;
 import com.DAO.Impl.ProductDAOImpl;
+import com.google.gson.Gson;
 import com.models.ProductModel;
 import com.service.ProductService;
 
@@ -37,8 +38,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int countAll() {
-		return proDAO.getAll().size();
+	public int countAll(List<ProductModel> list) {
+		return list.size();
 	}
 
 	@Override
@@ -48,20 +49,26 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int lenPage(int maxInPage) {
-		int len = this.countAll();
+	public int lenPage(List<ProductModel> list,int maxInPage) {
+		int len = this.countAll(list);
 		int du = (len%maxInPage!=0)?1:0;
-		return ((int)len%maxInPage)+du;
+		return ((int)len/maxInPage)+du;
 	}
 
+	
 	@Override
-	public List<ProductModel> getListInPage(int page, int maxInPage) {
-		List<ProductModel> list  = proDAO.getAll();
+	public List<ProductModel> getListInPage(List<ProductModel> list,
+			int page, int maxInPage) {
 		int len = list.size();
 		int start = (page-1)*maxInPage;
 		int end = start+maxInPage;
-		if(end>len-1) return list.subList(start, len);
-		else return list.subList(start, end);
+		try {
+			if(end>len-1) return list.subList(start, len);
+			else return list.subList(start, end);
+		}catch(IndexOutOfBoundsException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -87,6 +94,24 @@ public class ProductServiceImpl implements ProductService{
 		ProductModel pro = proDAO.getByID(id_product);
 		float price = pro.getPrice()*(1-pro.getSalePercent());
 		return price;
+	}
+
+	@Override
+	public List<ProductModel> getByCID(int cid) {
+		// TODO Auto-generated method stub
+		return proDAO.getByCid(cid);
+	}
+	public static void main(String args[]) {
+		Gson gson = new Gson();
+		ProductServiceImpl pro = new ProductServiceImpl();
+		List<ProductModel> list =pro.getByID_seller(2);
+		System.out.print(gson.toJson( pro.getAll()));
+	}
+
+	@Override
+	public List<ProductModel> getByID_seller(int id_selle) {
+		// TODO Auto-generated method stub
+		return proDAO.getByIDUser(id_selle);
 	}
 
 }

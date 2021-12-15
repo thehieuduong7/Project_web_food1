@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.controller.login.SessionController;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.models.UserLoginModel;
 import com.service.BillService;
 import com.service.CartService;
 import com.service.impl.BillServiceImpl;
@@ -48,8 +50,14 @@ public class BillAPI extends HttpServlet {
 		response.setContentType("text/htm");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-
 		
+		request.setCharacterEncoding("UTF-8");
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+		
+		 int id_user = u.getId_user();
 		 StringBuffer jb = new StringBuffer(); String line = null; 
 		 PrintWriter out = response.getWriter();
 		 
@@ -59,7 +67,6 @@ public class BillAPI extends HttpServlet {
 				 
 		 JsonElement root = new JsonParser().parse(new String(jb));
 		 String city_ship = root.getAsJsonObject().get("city_ship").getAsString().trim();
-		 int id_user =1;
 		 
 		 
 		 BillService cartSer = new BillServiceImpl();

@@ -6,7 +6,9 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.controller.login.SessionController;
 import com.models.ProductModel;
+import com.models.UserLoginModel;
 import com.service.ProductService;
 import com.service.impl.ProductServiceImpl;
 
@@ -31,6 +33,12 @@ public class HomeController extends HttpServlet {
 		response.setContentType("text/htm");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
+		
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+		
 		ProductService proService = new ProductServiceImpl();
 		
 		List<ProductModel> listTop4 = proService.getTop4();

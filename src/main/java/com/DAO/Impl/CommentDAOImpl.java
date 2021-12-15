@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.DAO.CommentDAO;
-import com.controller.DBConnectMySQL;
+import com.controller.config.DBConnectMySQL;
 import com.models.CommentModel;
 import com.models.ProductModel;
 

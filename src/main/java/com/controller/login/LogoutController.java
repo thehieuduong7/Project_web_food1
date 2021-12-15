@@ -1,28 +1,24 @@
-package com.controller.seller;
+package com.controller.login;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.controller.login.SessionController;
-import com.models.UserLoginModel;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class StatisticsController
+ * Servlet implementation class LogoutController
  */
-@WebServlet("/seller/StatisticsController")
-public class StatisticsController extends HttpServlet {
+@WebServlet("/logout")
+public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StatisticsController() {
+    public LogoutController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,21 +28,10 @@ public class StatisticsController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
-		response.setContentType("text/htm");
-		response.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");	
-		UserLoginModel u = SessionController.getUserLogin(request, response);
-		if(u==null) {
-			return;
-		}
-		if(!u.getRole().trim().equals("seller")) {
-			return;
-		}
-		RequestDispatcher rq = request.getRequestDispatcher("/views/seller/StatisticsSeller.jsp");
-		rq.forward(request, response);
-	}
+		HttpSession session = request.getSession();
+        
+        session.removeAttribute("UserLogin"); //remove session
+        response.sendRedirect("./login");	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

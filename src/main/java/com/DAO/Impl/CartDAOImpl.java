@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.DAO.CartDAO;
-import com.controller.DBConnect;
-import com.controller.DBConnectMySQL;
+import com.controller.config.DBConnect;
+import com.controller.config.DBConnectMySQL;
 import com.models.CartModel;
 
 public class CartDAOImpl implements CartDAO{

@@ -46,7 +46,7 @@
 		
         <div class="box">
             <a href="<c:url value="/web/productDetail?pid=${pro.getId_product() }" />" class="fas fa-eye"></a>
-            <img src="${pro.getPhoto() }" alt="" width= "100px" height="100px">
+            <img src="<c:url value="${pro.getPhoto()}"/>" width= "100px" height="100px">
             <h3>${pro.getName_food() }</h3>
             <div class="stars">
                 <i class="fas fa-star"></i>
@@ -55,7 +55,14 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star-half-alt"></i>
             </div>
-            <span > ${pro.getPrice()}đồng </span>
+            <div style="height:70px">
+            <span  style="text-decoration-line:${(pro.getSalePercent()==0)?"none;":"line-through"}"> ${pro.getPrice()}đồng </span>
+            
+           <span style="display:${(pro.getSalePercent()==0)?"None":"Block"};" > ${pro.getBuyPrice()}đồng  </span>
+            
+            
+            </div>
+            
             <button class="btn" onclick="plusCart(${pro.getId_product()})">
                 <i class="fas fa-shopping-basket"></i>
                 Thêm vào giỏ</button>
@@ -132,27 +139,7 @@ var urlCartAPI = '<c:url value="/CartAPI" />'
 				  async: false
 				});
 		}
-	function deleteCart(id_product){
-	$.ajax({
-		  url: urlCartAPI+"?pid="+id_product,
-		  type: 'delete',
-		  success: function (data, status) {
-			 console.log('done');
-			 if(data=='true'){
-				 var cartItem= document.getElementById("cart-item"+id_product);	
-				 cartItem.remove()
-			 }
-			 else {
-				 alert("server hiện quá tải! vui lòng thử lại sau");
-			 }
-		  },
-		  error: function (xhr, desc, err) {
-		    console.log(xhr);
-		    console.log("Desc: " + desc + "\nErr:" + err);
-		  },
-		  async: false
-		});
-}
+
 </script>
 
 
