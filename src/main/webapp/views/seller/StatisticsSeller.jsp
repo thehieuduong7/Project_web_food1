@@ -329,7 +329,6 @@
 <button id="cmd">Generate PDF</button> */
 	//window.jsPDF = window.jspdf.jsPDF;
 	//window.jsPDF = require('jspdf');
-     var doc = new jsPDF('p', 'pt', 'letter');
  
     var specialElementHandlersThang = {
         '#input_search_thang': function (element, renderer) {
@@ -342,6 +341,8 @@
     };
 
     $('#savePDFThang').click(function () {
+		     var doc = new jsPDF('p', 'pt', 'letter');
+
         doc.fromHTML($('#tkThangContainer').html(), 60, 100, {
             'width': 1000,
             'elementHandlers': specialElementHandlersThang
@@ -359,6 +360,8 @@
         };
 
     $('#savePDFNam').click(function () {
+		     var doc = new jsPDF('p', 'pt', 'letter');
+
         doc.fromHTML($('#tkNamContainer').html(), 50, 50, {
             'width': 1000,
             'elementHandlers': specialElementHandlersNam
