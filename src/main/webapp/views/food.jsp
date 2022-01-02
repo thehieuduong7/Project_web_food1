@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 
-<body>
+
 
 <!-- menu section starts  -->
-<section style="text-align: center" class="menu dishes" id="menu">
+<section style="text-align: center;margin-top: 170px;" class="menu dishes"
+  id="menu">
+  
     <h3 class="sub-heading"> My menu </h3>
 
     <h1 class="heading"> today's speciality </h1>
@@ -65,6 +67,8 @@ function loadProduct(data){
 	var buyPrice = price*(1-salePercent)
 	var div = document.createElement("div");
 	div.classList.add('box')
+	div.id = name_food
+
 	var content = 
 	`
 			<a href="<c:url value="/web/productDetail?pid=`+id_product+`" />"
@@ -102,19 +106,23 @@ function loadProduct(data){
 	Product_container.appendChild(div)
 }
 var product_load_btn = document.getElementById("Product_load_btn")
-function loadProductByCID(cid){
+
+function resetIndex(){
+	product_container.innerHTML=""
+		pageCurrent=0;
+		lenPage=1;
+}
+
+function loadProductByCID(cid,search){
 	if(!cid) {
 		cid=categoryCurrent
 	}
 	if(categoryCurrent!=cid)
 		{
-		product_container.innerHTML=""
-		pageCurrent=0;
-		lenPage=1;
+		resetIndex()
 		}
 	categoryCurrent	=cid
 	pageCurrent+=1;
-	//if(lenPage<pageCurrent) return;
 	data={
 			id_category:cid,
 			maxInPage:maxInPage,
@@ -143,6 +151,7 @@ function loadProductByCID(cid){
 					product_load_btn.setAttribute('style','display:None;')
 				}
 			  }
+		
 		  },
 		  error: function (xhr, desc, err) {
 			  
@@ -151,7 +160,7 @@ function loadProductByCID(cid){
 		  }
 		});
 }
-loadProductByCID()
+//loadProductByCID()
 product_load_btn.setAttribute('onclick',"loadProductByCID()")
 
 function createButtonCategory(data){
@@ -216,18 +225,22 @@ var urlCartAPI = '<c:url value="/CartAPI" />'
 var listAllPro= loadProductByCID(-1);	
 text_search =document.getElementById(listAllPro)
 
+
+
 function click_search(){
 	var search = document.getElementById('text_search');
 	var str_search = search.value
-	if(!str_search) return;
-	else{
-		product_container.innerHTML=""
+	//if(!str_search) return;
+	var listBox = product_container.getElementsByClassName('box')
+	for (var i of listBox){
+		if(i.id.startsWith(str_search)){
+			i.setAttribute('style','display:block;')
+		}else{
+			i.setAttribute('style','display:none;')
 
 		}
 	}
 }
+
 </script>
 
-
-</body>
-</html>

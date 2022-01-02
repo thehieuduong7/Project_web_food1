@@ -75,6 +75,8 @@
 
 
 <!-- JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+
 
 <script src="//code.jquery.com/jquery-3.2.1.slim.min.js" type="text/javascript"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>

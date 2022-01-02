@@ -17,11 +17,11 @@
 
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				aria-labelledby="exampleModalLabel" aria-hidden="true" >
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+							<h5 class="modal-title" id="exampleModalLabel"></h5>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
@@ -29,7 +29,7 @@
 						</div>
 						<div class="modal-body">...</div>
 						<div class="modal-footer" style="justify-content:center;width:100%;">
-						<form action="<c:url value="/seller/products"/>" method="post" 
+						<form action="<c:url value="/seller/products"/>" method="post" style="width: 80%;"
 						enctype="multipart/form-data">							
 								<h3>Nhập thông tin sản phẩm mới</h3>
 								<input type="hidden" id="form_meth" name="form_meth" value="add">
@@ -53,12 +53,12 @@
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Price</label> <input
 										type="text" class="form-control"
-										name="text_price" placeholder="name@example.com">
+										name="text_price" placeholder="price">
 								</div>
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Description</label> <input
 										type="text" class="form-control"
-										name="text_description" placeholder="name@example.com">
+										name="text_description" placeholder="description">
 								</div>
 								<div class="form-group">
 									<label for="exampleFormControlFile1">Photo</label>
@@ -68,7 +68,7 @@
 								<div class="form-group">
 									<label for="exampleFormControlInput1">Sale percent</label> <input
 										type="text" class="form-control"
-										name="text_salePercent" placeholder="percent">
+										name="text_salePercent" placeholder="sale percent">
 								</div>
 								 <button type="submit"  class="btn btn-primary mb-2"
 								 	onclick="checkConfirm(event)"

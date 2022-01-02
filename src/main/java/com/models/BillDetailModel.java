@@ -1,8 +1,13 @@
 package com.models;
 
+
 public class BillDetailModel {
+	
 	int id_billDetail;
+	
 	int id_bill;
+	
+	
 	int id_product;
 	int amount ;
 	float total_money;

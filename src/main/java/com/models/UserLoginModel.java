@@ -1,14 +1,17 @@
 package com.models;
 
-import java.awt.Image;
-import java.util.Date;
+
 
 public class UserLoginModel {
+	
 	int id_user;
+	
 	String full_name;
 	String username;
 	String password;
+	
 	String role;
+	
 	public int getId_user() {
 		return id_user;
 	}

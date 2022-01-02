@@ -1,10 +1,23 @@
-package com.models;
+package com.entities;
 
+import java.io.Serializable;
 
-public class ShipModel {
+import javax.persistence.*;
+
+@Entity(name="Ship")
+@Table(name="ship")
+public class ShipModel implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@Column(length=50)
 	String city_ship ;
 	
+	@Column
 	float price_ship ;
 	
 	
@@ -20,10 +33,8 @@ public class ShipModel {
 	public void setPrice_ship(float price_ship) {
 		this.price_ship = price_ship;
 	}
-	public ShipModel(String city_ship, float price_ship) {
+	public ShipModel() {
 		super();
-		this.city_ship = city_ship;
-		this.price_ship = price_ship;
 	}
 	
 }

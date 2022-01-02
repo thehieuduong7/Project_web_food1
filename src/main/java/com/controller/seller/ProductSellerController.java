@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.controller.login.SessionController;
 import com.google.gson.Gson;
 import com.models.ProductModel;
+import com.models.UserLoginModel;
 import com.service.CategoryService;
 import com.service.ProductService;
 import com.service.impl.CategoryServiceImpl;
@@ -55,11 +57,17 @@ public class ProductSellerController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		CategoryService ser =new CategoryServiceImpl();
-		
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+		if(!u.getRole().trim().equals("seller")) {
+			return;
+		}
 		request.setAttribute("listCate", ser.getAll());
 		
 		ProductService proSer = new ProductServiceImpl();
-		int id_seller=1;
+		int id_seller=u.getId_user();
 		
 		request.setAttribute("listProduct", proSer.getByID_seller(id_seller));
 
@@ -79,10 +87,16 @@ public class ProductSellerController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
-
+		UserLoginModel u = SessionController.getUserLogin(request, response);
+		if(u==null) {
+			return;
+		}
+		if(!u.getRole().trim().equals("seller")) {
+			return;
+		}
         
 		ProductService proSer = new ProductServiceImpl();
-		int id_seller= 1;
+		int id_seller= u.getId_user();
 
 		try {
 
