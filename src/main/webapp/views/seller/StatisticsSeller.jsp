@@ -329,7 +329,10 @@
 <button id="cmd">Generate PDF</button> */
 	//window.jsPDF = window.jspdf.jsPDF;
 	//window.jsPDF = require('jspdf');
+<<<<<<< HEAD
     
+=======
+>>>>>>> 91a82881ecd7555689d15a13e1d689f987ea98e2
  
     var specialElementHandlersThang = {
         '#input_search_thang': function (element, renderer) {
@@ -342,7 +345,12 @@
     };
 
     $('#savePDFThang').click(function () {
+<<<<<<< HEAD
     	 var doc = new jsPDF('p', 'pt', 'letter');
+=======
+		     var doc = new jsPDF('p', 'pt', 'letter');
+
+>>>>>>> 91a82881ecd7555689d15a13e1d689f987ea98e2
         doc.fromHTML($('#tkThangContainer').html(), 60, 100, {
             'width': 1000,
             'elementHandlers': specialElementHandlersThang
@@ -360,7 +368,12 @@
         };
 
     $('#savePDFNam').click(function () {
+<<<<<<< HEAD
     	 var doc = new jsPDF('p', 'pt', 'letter');
+=======
+		     var doc = new jsPDF('p', 'pt', 'letter');
+
+>>>>>>> 91a82881ecd7555689d15a13e1d689f987ea98e2
         doc.fromHTML($('#tkNamContainer').html(), 50, 50, {
             'width': 1000,
             'elementHandlers': specialElementHandlersNam
